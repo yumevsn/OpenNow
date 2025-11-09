@@ -19,12 +19,12 @@ const GridIcon: React.FC = () => (
 
 
 const ViewSwitcher: React.FC<ViewSwitcherProps> = ({ viewMode, setViewMode }) => {
-  const baseClasses = "p-2 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500";
+  const baseClasses = "p-2 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800";
   const activeClasses = "bg-indigo-600 text-white";
-  const inactiveClasses = "text-gray-500 hover:bg-gray-200 hover:text-gray-700";
+  const inactiveClasses = "text-gray-500 hover:bg-gray-200 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200";
 
   return (
-    <div className="flex items-center space-x-1 bg-gray-100 p-1 rounded-lg">
+    <div className="flex items-center space-x-1 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
       <button
         onClick={() => setViewMode('table')}
         className={`${baseClasses} ${viewMode === 'table' ? activeClasses : inactiveClasses}`}

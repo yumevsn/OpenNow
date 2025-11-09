@@ -155,22 +155,22 @@ const AddBusinessModal: React.FC<AddBusinessModalProps> = ({
     return null;
   }
 
-  const inputClasses = "mt-1 block w-full pl-3 pr-3 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm";
-  const labelClasses = "block text-sm font-medium text-gray-700";
+  const inputClasses = "mt-1 block w-full pl-3 pr-3 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500";
+  const labelClasses = "block text-sm font-medium text-gray-700 dark:text-gray-300";
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex justify-center items-center p-4">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <form onSubmit={handleSubmit}>
           <div className="p-6">
             <div className="flex justify-between items-start">
-              <h2 className="text-xl font-bold text-gray-900">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
                 {isEditMode ? 'Edit Business Branch' : 'Add a New Business'}
               </h2>
               <button
                 type="button"
                 onClick={handleClose}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
                 aria-label="Close"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -213,25 +213,25 @@ const AddBusinessModal: React.FC<AddBusinessModalProps> = ({
             </div>
 
             <div className="mt-8">
-              <h3 className="text-lg font-medium leading-6 text-gray-900">Weekly Hours</h3>
+              <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">Weekly Hours</h3>
               <div className="mt-4 space-y-4">
                 {DAYS_OF_WEEK.map(day => (
-                  <div key={day} className="grid grid-cols-1 sm:grid-cols-4 items-center gap-4 p-2 rounded-md even:bg-gray-50">
+                  <div key={day} className="grid grid-cols-1 sm:grid-cols-4 items-center gap-4 p-2 rounded-md even:bg-gray-50 dark:even:bg-white/5">
                     <div className="sm:col-span-1 flex items-center justify-between">
-                      <span className="font-medium text-gray-800">{day}</span>
+                      <span className="font-medium text-gray-800 dark:text-gray-200">{day}</span>
                       <div className="flex items-center sm:ml-4">
-                        <input id={`closed-${day}`} type="checkbox" checked={formSchedule[day].isClosed} onChange={(e) => handleScheduleChange(day, 'isClosed', e.target.checked)} className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" />
-                        <label htmlFor={`closed-${day}`} className="ml-2 block text-sm text-gray-900">Closed</label>
+                        <input id={`closed-${day}`} type="checkbox" checked={formSchedule[day].isClosed} onChange={(e) => handleScheduleChange(day, 'isClosed', e.target.checked)} className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600" />
+                        <label htmlFor={`closed-${day}`} className="ml-2 block text-sm text-gray-900 dark:text-gray-200">Closed</label>
                       </div>
                     </div>
                     <div className="sm:col-span-3 grid grid-cols-2 gap-4">
                        <div>
                          <label htmlFor={`open-${day}`} className="sr-only">Open Time</label>
-                         <input type="time" id={`open-${day}`} value={formSchedule[day].open} onChange={(e) => handleScheduleChange(day, 'open', e.target.value)} disabled={formSchedule[day].isClosed} className={`${inputClasses} disabled:bg-gray-200 disabled:cursor-not-allowed`} />
+                         <input type="time" id={`open-${day}`} value={formSchedule[day].open} onChange={(e) => handleScheduleChange(day, 'open', e.target.value)} disabled={formSchedule[day].isClosed} className={`${inputClasses} disabled:bg-gray-200 dark:disabled:bg-gray-600 disabled:cursor-not-allowed`} />
                        </div>
                        <div>
                          <label htmlFor={`close-${day}`} className="sr-only">Close Time</label>
-                         <input type="time" id={`close-${day}`} value={formSchedule[day].close} onChange={(e) => handleScheduleChange(day, 'close', e.target.value)} disabled={formSchedule[day].isClosed} className={`${inputClasses} disabled:bg-gray-200 disabled:cursor-not-allowed`} />
+                         <input type="time" id={`close-${day}`} value={formSchedule[day].close} onChange={(e) => handleScheduleChange(day, 'close', e.target.value)} disabled={formSchedule[day].isClosed} className={`${inputClasses} disabled:bg-gray-200 dark:disabled:bg-gray-600 disabled:cursor-not-allowed`} />
                        </div>
                     </div>
                   </div>
@@ -239,17 +239,17 @@ const AddBusinessModal: React.FC<AddBusinessModalProps> = ({
               </div>
             </div>
           </div>
-          <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse items-center">
+          <div className="bg-gray-50 dark:bg-gray-900/80 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse items-center">
             <button
               type="submit"
-              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
+              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               {isEditMode ? 'Save Changes' : 'Add Business'}
             </button>
             <button
               type="button"
               onClick={handleClose}
-              className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
+              className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-600"
             >
               Cancel
             </button>

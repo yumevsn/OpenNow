@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { DisplayBusiness, Day, Hours } from '../types';
 import { DAYS_OF_WEEK } from '../constants';
@@ -73,7 +74,7 @@ const TimelineBar: React.FC<{
           style={{ left: `${left}%`, width: `${width}%` }}
         >
           <div
-            className="absolute top-0 h-full bg-gray-100 transition-all duration-500 ease-linear"
+            className="absolute top-0 h-full bg-gray-100 dark:bg-gray-700 transition-all duration-500 ease-linear"
             style={{ left: `${progressPercent}%`, right: '0' }}
           />
         </div>
@@ -83,7 +84,7 @@ const TimelineBar: React.FC<{
     // Bar for non-today days
     return (
       <div
-        className="absolute h-full bg-gray-300 rounded-full"
+        className="absolute h-full bg-gray-300 dark:bg-gray-500 rounded-full"
         style={{ left: `${left}%`, width: `${width}%` }}
       />
     );
@@ -126,7 +127,7 @@ const BusinessHabitCard: React.FC<BusinessHabitCardProps> = ({ business, onOpenE
   };
   
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 flex flex-col justify-between transition-shadow hover:shadow-lg">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex flex-col justify-between transition-shadow hover:shadow-lg dark:hover:shadow-xl dark:shadow-indigo-900/50">
       <div>
         <div className="flex justify-between items-start mb-4">
           <div className="flex-1 min-w-0">
@@ -135,12 +136,12 @@ const BusinessHabitCard: React.FC<BusinessHabitCardProps> = ({ business, onOpenE
                 className={`w-3 h-3 rounded-full mr-3 flex-shrink-0 transition-colors ${statusIndicatorClasses[status]}`}
                 title={`Status: ${statusTitle[status]}`}
               ></span>
-              <p className="text-gray-900 font-bold truncate" title={business.businessName}>{business.businessName}</p>
+              <p className="text-gray-900 dark:text-gray-100 font-bold truncate" title={business.businessName}>{business.businessName}</p>
             </div>
-            <p className="ml-6 text-sm text-gray-500">{business.area} - <span className="font-medium">{statusTitle[status]}</span></p>
+            <p className="ml-6 text-sm text-gray-500 dark:text-gray-400">{business.area} - <span className="font-medium">{statusTitle[status]}</span></p>
           </div>
 
-          <button onClick={() => onOpenEditModal(business)} className="ml-4 flex-shrink-0 text-gray-400 hover:text-indigo-600 transition-colors" aria-label={`Edit ${business.businessName}`}>
+          <button onClick={() => onOpenEditModal(business)} className="ml-4 flex-shrink-0 text-gray-400 dark:text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" aria-label={`Edit ${business.businessName}`}>
             <EditIcon />
           </button>
         </div>
@@ -155,13 +156,13 @@ const BusinessHabitCard: React.FC<BusinessHabitCardProps> = ({ business, onOpenE
             return (
               <div key={day} className="grid grid-cols-6 gap-2 items-center text-sm">
                 <div className="col-span-2">
-                  <p className={`font-medium flex items-center ${isToday ? 'text-indigo-600' : 'text-gray-800'}`}>
+                  <p className={`font-medium flex items-center ${isToday ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-800 dark:text-gray-200'}`}>
                     {day}
                     {isHoliday && <HolidayIcon title={holiday.name} />}
                   </p>
-                  <p className={`text-xs ${!hours ? 'text-gray-400' : 'text-gray-500'}`}>{formatHours(hours)}</p>
+                  <p className={`text-xs ${!hours ? 'text-gray-400 dark:text-gray-500' : 'text-gray-500 dark:text-gray-400'}`}>{formatHours(hours)}</p>
                 </div>
-                <div className="col-span-4 h-4 bg-gray-100 rounded-full overflow-hidden relative">
+                <div className="col-span-4 h-4 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden relative">
                    <TimelineBar hours={hours} isToday={isToday} now={now} status={status}/>
                 </div>
               </div>

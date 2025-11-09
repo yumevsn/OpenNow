@@ -27,6 +27,8 @@ const Filters: React.FC<FiltersProps> = ({
   onSearchChange,
 }) => {
   const isAllCities = selectedCity === 'All Cities';
+  const inputBaseClasses = "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500";
+  
   return (
     <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 px-4 py-4">
       <div className="w-full sm:w-auto">
@@ -37,7 +39,7 @@ const Filters: React.FC<FiltersProps> = ({
           id="city-select"
           value={selectedCity}
           onChange={(e) => onCityChange(e.target.value)}
-          className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm"
+          className={inputBaseClasses}
         >
           <option value="All Cities">All Cities</option>
           {Object.keys(locations).map((city) => (
@@ -56,7 +58,7 @@ const Filters: React.FC<FiltersProps> = ({
           value={selectedArea}
           onChange={(e) => onAreaChange(e.target.value)}
           disabled={isAllCities}
-          className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm disabled:bg-gray-200 disabled:cursor-not-allowed"
+          className={`${inputBaseClasses} disabled:bg-gray-200 disabled:cursor-not-allowed dark:disabled:bg-gray-800 dark:disabled:text-gray-400`}
         >
           <option value="All">All Areas</option>
           {!isAllCities &&
@@ -75,7 +77,7 @@ const Filters: React.FC<FiltersProps> = ({
           id="type-select"
           value={selectedType}
           onChange={(e) => onTypeChange(e.target.value as BusinessType | 'All')}
-          className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm"
+          className={inputBaseClasses}
         >
           {businessTypes.map((type) => (
             <option key={type} value={type}>
@@ -94,7 +96,7 @@ const Filters: React.FC<FiltersProps> = ({
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Search by business name..."
-          className="mt-1 block w-full pl-3 pr-3 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm"
+          className={`${inputBaseClasses} pr-3`}
         />
       </div>
     </div>

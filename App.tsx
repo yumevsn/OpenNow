@@ -1,4 +1,5 @@
 
+
 import React, { useState, useMemo } from 'react';
 import Header from './components/Header';
 import Filters from './components/Filters';
@@ -17,7 +18,7 @@ const App: React.FC = () => {
   const [selectedArea, setSelectedArea] = useState<string>('All');
   const [selectedType, setSelectedType] = useState<BusinessType | 'All'>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [viewMode, setViewMode] = useState<'table' | 'grid'>('table');
+  const [viewMode, setViewMode] = useState<'table' | 'grid'>('grid');
 
   const displayedBusinesses = useMemo(() => {
     const results: DisplayBusiness[] = [];
@@ -109,7 +110,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 font-sans transition-colors duration-300">
       <main className="container mx-auto px-4 py-8">
         <Header />
         <Filters
