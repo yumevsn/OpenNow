@@ -59,6 +59,8 @@ export const SAMPLE_BUSINESSES: Business[] = [
         address: '123 Samora Machel Ave, Harare',
         city: 'Harare',
         area: 'CBD',
+        latitude: -17.824,
+        longitude: 31.049,
         schedule: {
           [Day.Mon]: { open: '8 AM', close: '8 PM' },
           [Day.Tue]: { open: '8 AM', close: '8 PM' },
@@ -81,6 +83,8 @@ export const SAMPLE_BUSINESSES: Business[] = [
         address: '456 Jason Moyo St, Bulawayo',
         city: 'Bulawayo',
         area: 'CBD',
+        latitude: -20.151,
+        longitude: 28.586,
         schedule: {
           [Day.Mon]: { open: '9 AM', close: '7 PM' },
           [Day.Tue]: { open: '9 AM', close: '7 PM' },
@@ -96,6 +100,8 @@ export const SAMPLE_BUSINESSES: Business[] = [
         address: 'Shop 5, Avondale Shopping Centre, Harare',
         city: 'Harare',
         area: 'Avondale',
+        latitude: -17.795,
+        longitude: 31.02,
         schedule: {
           [Day.Mon]: { open: '8 AM', close: '8 PM' },
           [Day.Tue]: { open: '8 AM', close: '8 PM' },
@@ -118,6 +124,8 @@ export const SAMPLE_BUSINESSES: Business[] = [
         address: '789 Robert Mugabe Way, Gweru',
         city: 'Gweru',
         area: 'CBD',
+        latitude: -19.458,
+        longitude: 29.815,
         schedule: {
           [Day.Mon]: null,
           [Day.Tue]: { open: '5 PM', close: '10 PM' },
@@ -140,6 +148,8 @@ export const SAMPLE_BUSINESSES: Business[] = [
         address: '101 Herbert Chitepo St, Mutare',
         city: 'Mutare',
         area: 'CBD',
+        latitude: -18.973,
+        longitude: 32.671,
         schedule: {
           [Day.Mon]: { open: '7 AM', close: '6 PM' },
           [Day.Tue]: { open: '7 AM', close: '6 PM' },
@@ -162,6 +172,8 @@ export const SAMPLE_BUSINESSES: Business[] = [
         address: '212 Fife St, Bulawayo',
         city: 'Bulawayo',
         area: 'Hillcrest',
+        latitude: -20.165,
+        longitude: 28.601,
         schedule: {
           [Day.Mon]: { open: '7 AM', close: '10 PM' },
           [Day.Tue]: { open: '7 AM', close: '10 PM' },
@@ -184,6 +196,8 @@ export const SAMPLE_BUSINESSES: Business[] = [
         address: '10 Nelson Mandela Ave, Kwekwe',
         city: 'Kwekwe',
         area: 'CBD',
+        latitude: -18.924,
+        longitude: 29.812,
         schedule: {
           [Day.Mon]: { open: '8 AM', close: '7 PM' },
           [Day.Tue]: { open: '8 AM', close: '7 PM' },
@@ -206,6 +220,8 @@ export const SAMPLE_BUSINESSES: Business[] = [
         address: 'Batoka Gorge, Victoria Falls',
         city: 'Victoria Falls',
         area: 'Town Centre',
+        latitude: -17.925,
+        longitude: 25.85,
         schedule: {
           [Day.Mon]: { open: '10 AM', close: '10 PM' },
           [Day.Tue]: { open: '10 AM', close: '10 PM' },
@@ -228,6 +244,8 @@ export const SAMPLE_BUSINESSES: Business[] = [
         address: '33 Robert Mugabe Rd, Masvingo',
         city: 'Masvingo',
         area: 'CBD',
+        latitude: -20.074,
+        longitude: 30.829,
         schedule: {
           [Day.Mon]: { open: '8 AM', close: '9 PM' },
           [Day.Tue]: { open: '8 AM', close: '9 PM' },

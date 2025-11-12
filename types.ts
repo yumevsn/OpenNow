@@ -29,6 +29,8 @@ export interface Branch {
   address: string;
   city: string;
   area: string;
+  latitude: number;
+  longitude: number;
   schedule: Schedule;
 }
 
@@ -43,4 +45,5 @@ export interface DisplayBusiness extends Branch {
   businessId: number;
   businessName: string;
   businessType: BusinessType;
+  distance?: number;
 }

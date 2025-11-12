@@ -12,6 +12,7 @@ interface BusinessGridProps {
   businesses: DisplayBusiness[];
   onOpenAddBusinessModal: () => void;
   onOpenEditModal: (business: DisplayBusiness) => void;
+  onViewDetails: (business: DisplayBusiness) => void;
   viewMode: 'table' | 'grid';
 }
 
@@ -22,7 +23,7 @@ const EditIcon: React.FC = () => (
     </svg>
 );
 
-const BusinessRow: React.FC<{ business: DisplayBusiness; holidaysInWeek: Map<Day, Holiday>; onOpenEditModal: (business: DisplayBusiness) => void; currentDay: Day; }> = ({ business, holidaysInWeek, onOpenEditModal, currentDay }) => {
+const BusinessRow: React.FC<{ business: DisplayBusiness; holidaysInWeek: Map<Day, Holiday>; onOpenEditModal: (business: DisplayBusiness) => void; onViewDetails: (business: DisplayBusiness) => void; currentDay: Day; }> = ({ business, holidaysInWeek, onOpenEditModal, onViewDetails, currentDay }) => {
   const [status, setStatus] = useState<BusinessStatus>(getBusinessStatus(business.schedule));
 
   useEffect(() => {
@@ -50,19 +51,35 @@ const BusinessRow: React.FC<{ business: DisplayBusiness; holidaysInWeek: Map<Day
         className={`w-3 h-3 rounded-full mr-3 flex-shrink-0 ${statusIndicatorClasses[status]}`}
         title={`Status: ${statusTitle[status]}`}
       ></span>
-      <span className="text-gray-900 dark:text-gray-100 font-medium">{business.businessName}</span>
-      <span className="ml-2 text-gray-500 dark:text-gray-400">({business.area})</span>
+      <div>
+        <span className="text-gray-900 dark:text-gray-100 font-medium">{business.businessName}</span>
+        <div className="text-gray-500 dark:text-gray-400">
+            <span>{business.area}</span>
+            {business.distance !== undefined && (
+                <span className="ml-2 font-mono text-xs">({business.distance.toFixed(1)}km)</span>
+            )}
+        </div>
+      </div>
     </div>
   );
 
   return (
     <>
       {/* Mobile Card */}
-      <div className="md:hidden bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 relative">
+      <div 
+        className="md:hidden bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 relative cursor-pointer hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        onClick={() => onViewDetails(business)}
+        role="button"
+        tabIndex={0}
+      >
         <div className="text-base font-semibold mb-2 pr-8">
            <BusinessNameDisplay />
         </div>
-        <button onClick={() => onOpenEditModal(business)} className="absolute top-3 right-3 text-gray-400 dark:text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" aria-label={`Edit ${business.businessName}`}>
+        <button 
+            onClick={(e) => { e.stopPropagation(); onOpenEditModal(business); }} 
+            className="absolute top-3 right-3 text-gray-400 dark:text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" 
+            aria-label={`Edit ${business.businessName}`}
+        >
             <EditIcon />
         </button>
         <div className="flex flex-wrap gap-1.5 text-xs">
@@ -90,8 +107,8 @@ const BusinessRow: React.FC<{ business: DisplayBusiness; holidaysInWeek: Map<Day
       </div>
       
       {/* Desktop Row */}
-      <tr className="hidden md:table-row even:bg-gray-50 dark:even:bg-white/5">
-        <td className="sticky left-0 bg-white dark:bg-gray-800 even:bg-gray-50 dark:even:bg-gray-800/90 whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6 z-10">
+      <tr className="hidden md:table-row even:bg-gray-50 dark:even:bg-white/5 hover:bg-gray-100 dark:hover:bg-gray-700/50 cursor-pointer" onClick={() => onViewDetails(business)}>
+        <td className="sticky left-0 bg-white dark:bg-gray-800 even:bg-gray-50 dark:even:bg-gray-800/90 whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6 z-10 group-hover:bg-gray-100 dark:group-hover:bg-gray-700/50">
            <BusinessNameDisplay />
         </td>
         {DAYS_OF_WEEK.map((day) => {
@@ -112,7 +129,11 @@ const BusinessRow: React.FC<{ business: DisplayBusiness; holidaysInWeek: Map<Day
           );
         })}
         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-          <button onClick={() => onOpenEditModal(business)} className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300" aria-label={`Edit ${business.businessName}`}>
+          <button 
+            onClick={(e) => { e.stopPropagation(); onOpenEditModal(business); }} 
+            className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 relative z-20" 
+            aria-label={`Edit ${business.businessName}`}
+          >
             Edit
           </button>
         </td>
@@ -121,7 +142,7 @@ const BusinessRow: React.FC<{ business: DisplayBusiness; holidaysInWeek: Map<Day
   );
 };
 
-const BusinessGrid: React.FC<BusinessGridProps> = ({ businesses, onOpenAddBusinessModal, onOpenEditModal, viewMode }) => {
+const BusinessGrid: React.FC<BusinessGridProps> = ({ businesses, onOpenAddBusinessModal, onOpenEditModal, onViewDetails, viewMode }) => {
   const [holidaysInWeek, setHolidaysInWeek] = useState<Map<Day, Holiday>>(new Map());
   const now = new Date();
   const todayIndex = (now.getDay() + 6) % 7;
@@ -173,6 +194,7 @@ const BusinessGrid: React.FC<BusinessGridProps> = ({ businesses, onOpenAddBusine
             key={business.id} 
             business={business} 
             onOpenEditModal={onOpenEditModal} 
+            onViewDetails={onViewDetails}
             currentDay={currentDay}
             holidaysInWeek={holidaysInWeek}
           />
@@ -186,7 +208,7 @@ const BusinessGrid: React.FC<BusinessGridProps> = ({ businesses, onOpenAddBusine
       {/* Container for Mobile Cards */}
       <div className="md:hidden space-y-4">
         {businesses.map((business) => (
-          <BusinessRow key={business.id} business={business} holidaysInWeek={holidaysInWeek} onOpenEditModal={onOpenEditModal} currentDay={currentDay} />
+          <BusinessRow key={business.id} business={business} holidaysInWeek={holidaysInWeek} onOpenEditModal={onOpenEditModal} onViewDetails={onViewDetails} currentDay={currentDay} />
         ))}
       </div>
 
@@ -220,7 +242,7 @@ const BusinessGrid: React.FC<BusinessGridProps> = ({ businesses, onOpenAddBusine
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white dark:bg-gray-800 dark:divide-gray-700">
                   {businesses.map((business) => (
-                     <BusinessRow key={business.id} business={business} holidaysInWeek={holidaysInWeek} onOpenEditModal={onOpenEditModal} currentDay={currentDay} />
+                     <BusinessRow key={business.id} business={business} holidaysInWeek={holidaysInWeek} onOpenEditModal={onOpenEditModal} onViewDetails={onViewDetails} currentDay={currentDay} />
                   ))}
                 </tbody>
               </table>

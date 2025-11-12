@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { DisplayBusiness, Day, Hours } from '../types';
 import { DAYS_OF_WEEK } from '../constants';
@@ -8,6 +9,7 @@ import { Holiday } from '../utils/date';
 interface BusinessHabitCardProps {
   business: DisplayBusiness;
   onOpenEditModal: (business: DisplayBusiness) => void;
+  onViewDetails: (business: DisplayBusiness) => void;
   currentDay: Day;
   holidaysInWeek: Map<Day, Holiday>;
 }
@@ -102,7 +104,7 @@ const TimelineBar: React.FC<{
 };
 
 
-const BusinessHabitCard: React.FC<BusinessHabitCardProps> = ({ business, onOpenEditModal, currentDay, holidaysInWeek }) => {
+const BusinessHabitCard: React.FC<BusinessHabitCardProps> = ({ business, onOpenEditModal, onViewDetails, currentDay, holidaysInWeek }) => {
   const [status, setStatus] = useState<BusinessStatus>(getBusinessStatus(business.schedule));
   const [now, setNow] = useState(new Date());
 
@@ -127,7 +129,13 @@ const BusinessHabitCard: React.FC<BusinessHabitCardProps> = ({ business, onOpenE
   };
   
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex flex-col justify-between transition-shadow hover:shadow-lg dark:hover:shadow-xl dark:shadow-indigo-900/50">
+    <div 
+        className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex flex-col justify-between transition-shadow hover:shadow-lg dark:hover:shadow-xl dark:shadow-indigo-900/50 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 dark:focus-visible:ring-offset-gray-900"
+        onClick={() => onViewDetails(business)}
+        role="button"
+        tabIndex={0}
+        aria-label={`View details for ${business.businessName}`}
+    >
       <div>
         <div className="flex justify-between items-start mb-4">
           <div className="flex-1 min-w-0">
@@ -138,10 +146,20 @@ const BusinessHabitCard: React.FC<BusinessHabitCardProps> = ({ business, onOpenE
               ></span>
               <p className="text-gray-900 dark:text-gray-100 font-bold truncate" title={business.businessName}>{business.businessName}</p>
             </div>
-            <p className="ml-6 text-sm text-gray-500 dark:text-gray-400">{business.area} - <span className="font-medium">{statusTitle[status]}</span></p>
+            <div className="ml-6 text-sm text-gray-500 dark:text-gray-400">
+                <span>{business.area} - </span>
+                <span className="font-medium">{statusTitle[status]}</span>
+                {business.distance !== undefined && (
+                    <span className="ml-2 font-mono text-xs">({business.distance.toFixed(1)}km away)</span>
+                )}
+            </div>
           </div>
 
-          <button onClick={() => onOpenEditModal(business)} className="ml-4 flex-shrink-0 text-gray-400 dark:text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" aria-label={`Edit ${business.businessName}`}>
+          <button 
+            onClick={(e) => { e.stopPropagation(); onOpenEditModal(business); }} 
+            className="ml-4 flex-shrink-0 text-gray-400 dark:text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" 
+            aria-label={`Edit ${business.businessName}`}
+          >
             <EditIcon />
           </button>
         </div>

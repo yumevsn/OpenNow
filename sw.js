@@ -1,11 +1,15 @@
-const CACHE_NAME = 'opennow-cache-v1';
+const CACHE_NAME = 'opennow-cache-v2';
 const OFFLINE_URL = 'offline.html';
 
-// List of files to cache on install
+// List of files to cache on install for the app shell
 const urlsToCache = [
   '/',
   '/index.html',
+  '/index.tsx',
   '/offline.html',
+  '/manifest.json',
+  '/icon-192.png',
+  '/icon-512.png',
   'https://cdn.tailwindcss.com/',
 ];
 
@@ -14,12 +18,8 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        console.log('Opened cache');
-        // Add offline.html to the cache
-        const offlineRequest = new Request(OFFLINE_URL, { cache: 'reload' });
-        return cache.add(offlineRequest).then(() => {
-          return cache.addAll(urlsToCache);
-        });
+        console.log('Opened cache. Caching app shell.');
+        return cache.addAll(urlsToCache);
       })
   );
   self.skipWaiting();

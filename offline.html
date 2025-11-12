@@ -6,33 +6,48 @@
     <title>OpenNow - Offline</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: sans-serif;
-            background-color: #f9fafb;
-        }
-        .container {
-            text-align: center;
-            padding: 2rem;
-        }
-        h1 {
-            font-size: 2rem;
-            color: #111827;
-        }
-        p {
-            color: #4b5563;
+        /* Basic dark mode support for the offline page */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #111827; /* gray-900 */
+            }
+            .container {
+                background-color: #1f2937; /* gray-800 */
+            }
+            h1, h2 {
+                color: #f9fafb; /* gray-50 */
+            }
+            p {
+                color: #d1d5db; /* gray-300 */
+            }
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>You're Offline</h1>
-        <p>It looks like you've lost your internet connection. Don't worry, you can still browse the business data you've already loaded.</p>
-        <p>We'll try to reconnect you automatically.</p>
+<body class="bg-gray-50 flex justify-center items-center h-screen m-0 font-sans p-4">
+    <div class="container text-center p-8 max-w-md mx-auto bg-white rounded-lg shadow-lg">
+        <h1 class="text-4xl font-bold text-gray-800 tracking-tight">
+            OpenNow
+        </h1>
+        <div class="my-4">
+            <svg class="mx-auto h-12 w-12 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636a9 9 0 010 12.728m-12.728 0a9 9 0 010-12.728m12.728 0L5.636 18.364m0-12.728L18.364 18.364"></path></svg>
+        </div>
+        <h2 class="text-2xl font-semibold text-gray-900">
+            You're Offline
+        </h2>
+        <p class="mt-2 text-gray-600">
+            It looks like you've lost your connection. Don't worry, any previously viewed business data is still available.
+        </p>
+        <p class="mt-1 text-gray-600">
+            Please check your connection and try again.
+        </p>
+        <div class="mt-6">
+            <button
+                onclick="window.location.reload()"
+                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+                Retry Connection
+            </button>
+        </div>
     </div>
 </body>
 </html>

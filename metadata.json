@@ -1,5 +1,7 @@
 {
   "name": "OpenNow",
   "description": "A simple app to find the opening hours of businesses in your area, displayed in a clean, habit-tracker-style grid.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [
+    "geolocation"
+  ]
 }
